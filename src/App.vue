@@ -1,24 +1,20 @@
 <template>
   <h1>Home Page</h1>
+  <p>{{ name }}</p>
 </template>
 
 <script>
-
+import { mapState } from "vuex"
 export default {
   name: 'App',
   components: {
 
+  },
+  computed: {
+    ...mapState("account", ["name"]),
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
