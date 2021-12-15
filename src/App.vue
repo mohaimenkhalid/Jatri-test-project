@@ -1,6 +1,5 @@
 <template>
-  <h1>Home Page</h1>
-  <p>{{ name }}</p>
+  <router-view />
 </template>
 
 <script>
