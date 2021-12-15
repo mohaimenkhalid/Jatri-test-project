@@ -5,7 +5,6 @@
   </div>
   <Footer />
 </template>
-
 <script>
 import { mapState } from "vuex"
 import Navbar from "@/components/partials/Navbar";

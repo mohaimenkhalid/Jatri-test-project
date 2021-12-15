@@ -3,12 +3,12 @@
     <div class="row">
       <div class="col-md-4 offset-md-4 login-form">
         <h3>Login</h3>
-        <form>
+        <form @submit.prevent="handleSubmit">
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="Your Email" value=""/>
+            <input type="text" v-model.trim="email" class="form-control" placeholder="Your Email" />
           </div>
           <div class="form-group mt-3">
-            <input type="password" class="form-control" placeholder="Your Password" value=""/>
+            <input type="password" v-model="password" class="form-control" placeholder="Your Password" />
           </div>
           <div class="form-group text-center mt-3">
             <input type="submit" class="btnSubmit" value="Login"/>
@@ -18,6 +18,31 @@
     </div>
   </div>
 </template>
+
+<script>
+import { mapActions } from 'vuex'
+export default {
+  data() {
+    return {
+      email: '',
+      password: '',
+      submitted: false
+    }
+  },
+  methods: {
+    ...mapActions('account', ['login']),
+    handleSubmit () {
+      this.submitted = true;
+      const { email, password } = this;
+      if (email && password) {
+        let loginFormData = {email, password}
+        this.login(loginFormData)
+      }
+    }
+  }
+}
+
+</script>
 
 <style scoped>
 .login-container {
