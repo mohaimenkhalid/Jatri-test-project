@@ -14,16 +14,24 @@ function login(formData) {
     });
 }
 
-
 function getAllUsersList() {
     return new Promise((resolve, reject) => {
         return axios.get(userApiRoute.usersList, {authHeader})
-            .then(response =>resolve(response.data))
+            .then(response => resolve(response.data))
+            .catch(error => reject(error))
+    });
+}
+
+function addNewUser(formData) {
+    return new Promise((resolve, reject) => {
+        return axios.post(userApiRoute.addNewUser, formData, {authHeader})
+            .then(response => resolve(response.data))
             .catch(error => reject(error))
     });
 }
 
 export const userService = {
     login,
-    getAllUsersList
+    getAllUsersList,
+    addNewUser
 };

@@ -12,12 +12,15 @@ const getters = {
 }
 
 const mutations = {
-    SET_USERS(state, data) {
-        state.users = data;
+    SET_USERS(state, payload) {
+        state.users = payload;
     },
     SET_LOADING(state, payload) {
         state.loading = payload;
     },
+    SET_NEW_USER(state, payload){
+        state.users = [...state.users, payload]
+    }
 }
 
 const actions = {
@@ -26,8 +29,17 @@ const actions = {
         userService.getAllUsersList()
             .then(res=> {
                 commit("SET_USERS", res)
+                commit("SET_LOADING", false)
             })
-            .then(commit("SET_LOADING", false))
+    },
+
+    async addNewUser(context, formData) {
+        context.commit("SET_LOADING", true)
+        await userService.addNewUser(formData)
+            .then(res=> {
+                context.commit("SET_NEW_USER", res)
+                context.commit("SET_LOADING", false)
+            })
     },
 
 }
