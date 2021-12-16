@@ -73,6 +73,15 @@ const actions = {
             })
     },
 
+    async userDetailsInformation(context, userId) {
+        context.commit("SET_LOADING", true)
+        await userService.userDetails(userId)
+            .then(res => {
+                context.commit("SET_USER_DETAILS", res.data)
+                context.commit("SET_LOADING", false)
+            })
+    }
+
 }
 
 export default {
@@ -80,5 +89,5 @@ export default {
     state,
     getters,
     mutations,
-    actions
+    actions,
 }

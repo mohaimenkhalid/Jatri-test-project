@@ -52,7 +52,7 @@ function userDetails(id) {
     return new Promise((resolve) => {
         return axios.get(userApiRoute.userEndpoint+`/${id}`, {authHeader})
             .then(res => {
-                resolve(res.data)
+                resolve(res)
             })
     });
 }
