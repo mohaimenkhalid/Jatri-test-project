@@ -12,10 +12,37 @@
           <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
           <li><a href="#" class="nav-link px-2 text-white">About</a></li>
         </ul>
-        <div class="text-end">
-          <router-link to="/login" type="button" class="btn btn-light me-2">Login</router-link>
+        <div class="text-end" v-if="isAuthenticate === true">
+          <a @click="handleSubmit" type="button" class="btn btn-light me-2">Logout</a>
+        </div>
+        <div class="text-end" v-else>
+          <router-link to="/login"  type="button" class="btn btn-light me-2">Login</router-link>
         </div>
       </div>
     </div>
   </header>
 </template>
+
+<script>
+import {mapActions, mapState} from "vuex";
+
+  export default {
+    name: "Navbar",
+    data() {
+      return {
+
+      }
+    },
+    computed: {
+      ...mapState({
+        isAuthenticate: state => state.account.isAuthenticate
+      }),
+    },
+    methods: {
+      ...mapActions('account', ['logout']),
+      handleSubmit() {
+        this.logout();
+      }
+    }
+  }
+</script>

@@ -3,6 +3,7 @@
     <div class="row">
       <div class="col-md-4 offset-md-4 login-form">
         <h3>Login</h3>
+        {{ isAuthenticate }}
         <form @submit.prevent="handleSubmit">
           <div class="form-group">
             <input type="text" v-model.trim="email" class="form-control" placeholder="Your Email" />
@@ -20,7 +21,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 export default {
   data() {
     return {
@@ -39,6 +40,11 @@ export default {
         this.login(loginFormData)
       }
     }
+  },
+  computed: {
+    ...mapState({
+      isAuthenticate: state => state.account.isAuthenticate
+    }),
   }
 }
 
@@ -52,7 +58,7 @@ export default {
 
 .login-form {
   padding: 5%;
-  background: #f05837;
+  background-color: #dc3545;
   border-radius: 1rem;
   box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
 }
@@ -71,16 +77,5 @@ export default {
   border: none;
   border-radius: 1.5rem;
   padding: 2%;
-}
-
-.btnForgetPwd {
-  color: #fff;
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.btnForgetPwd:hover {
-  text-decoration: none;
-  color: #fff;
 }
 </style>

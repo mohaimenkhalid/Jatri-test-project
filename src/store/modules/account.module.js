@@ -1,27 +1,38 @@
 import {userService} from "@/services";
+import router from "@/router";
 
 const state = {
+    isAuthenticate: false,
+    userinfo: null
+}
 
+const mutations = {
+    LOGIN_SUCCESS(state, user) {
+        state.isAuthenticate = true;
+        state.userinfo = user;
+    },
+
+    LOGOUT(state) {
+        state.isAuthenticate = false;
+        state.userinfo = null;
+
+    },
 }
 
 const actions = {
     login(context, formData) {
         userService.login(formData)
             .then(result => {
-                console.log(result)
                 if(result && result[0]) {
-                    console.log(result)
                     context.commit("LOGIN_SUCCESS", result[0])
+                    router.push('/')
                 }
             })
     },
-}
+    logout({ commit }) {
+        commit('LOGOUT');
+    }
 
-const mutations = {
-    LOGIN_SUCCESS(state, user) {
-        state.status = {loggedIn: true};
-        state.user = user;
-    },
 }
 
 export default {
