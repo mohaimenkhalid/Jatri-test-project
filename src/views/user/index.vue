@@ -1,0 +1,66 @@
+<template>
+  <div class="card my-3">
+    <div class="card-header d-flex justify-content-between">
+      <h4>User List</h4>
+      <button class="btn btn-danger">Add New User</button>
+    </div>
+    <div class="card-body table-responsive">
+      <table class="table table-hover">
+        <thead class="table-light">
+        <tr>
+          <th>SI#</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>username</th>
+          <th>Phone</th>
+          <th>website</th>
+          <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="user in getAllUsers" :key="user.id">
+          <td>{{ user.id }}</td>
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.username }}</td>
+
+          <td>
+            <button class="btn btn-sm btn-info">View</button>
+          </td>
+          <td>
+            <button class="btn btn-sm btn-primary">Edit</button>
+          </td>
+          <td> <button class="btn btn-sm btn-danger">Delete</button></td>
+        </tr>
+        </tbody>
+      </table>
+      <Loading :loading="loading" />
+    </div>
+  </div>
+</template>
+
+<script>
+  import {mapActions, mapState, mapGetters} from 'vuex'
+  import Loading from "@/components/Loading";
+  export default {
+    name: "UserList",
+    components: {Loading},
+    data() {
+      return {
+
+      }
+    },
+    created() {
+      this.fetchUsersList();
+    },
+    methods: {
+      ...mapActions('user', ['fetchUsersList']),
+    },
+    computed: {
+      ...mapState({
+        loading: state => state.user.loading
+      }),
+      ...mapGetters('user', ['getAllUsers'])
+    },
+  }
+</script>

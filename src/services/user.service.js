@@ -12,11 +12,18 @@ function login(formData) {
             })
             .catch(error => reject(error))
     });
+}
 
 
-
+function getAllUsersList() {
+    return new Promise((resolve, reject) => {
+        return axios.get(userApiRoute.usersList, {authHeader})
+            .then(response =>resolve(response.data))
+            .catch(error => reject(error))
+    });
 }
 
 export const userService = {
-    login
+    login,
+    getAllUsersList
 };

@@ -1,9 +1,11 @@
 import Home from '../views/HomePage'
 import Login from '../views/auth/LoginPage'
+import UserList from '../views/user'
 
 const routes = [
-    { path: '/', component: Home },
-    { path: '/login', component: Login },
+    { path: '/', name: 'home', component: Home },
+    { path: '/login', name: 'login', component: Login },
+    { path: '/users', name: 'user',  component: UserList },
 ]
 
 export default routes;
