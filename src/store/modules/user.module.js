@@ -21,6 +21,15 @@ const mutations = {
     SET_NEW_USER(state, payload){
         state.users = [...state.users, payload]
     },
+    UPDATE_USER(state, payload){
+        console.log(payload)
+        state.users = state.users.map(user => {
+            if(user.id === payload.id) {
+                return {...user, name: payload.name, email: payload.email, username: payload.username}
+            }
+            return user;
+        })
+    },
     DELETE_USER(state, id){
         state.users = state.users.filter(user => user.id !== id)
     }
@@ -42,6 +51,13 @@ const actions = {
             .then(res=> {
                 context.commit("SET_NEW_USER", res)
                 context.commit("SET_LOADING", false)
+            })
+    },
+
+    async updateUser(context, formData) {
+        await userService.updateUser(formData)
+            .then(() => {
+                context.commit("UPDATE_USER", formData)
             })
     },
 

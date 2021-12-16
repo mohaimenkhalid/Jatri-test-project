@@ -23,8 +23,8 @@
           <td>{{ user.username }}</td>
           <td class="d-flex justify-content-between">
             <button class="btn btn-sm btn-info">View</button>
-            <button class="btn btn-sm btn-primary">Edit</button>
-            <button class="btn btn-sm btn-danger" @click="OnDelete(user.id)">Delete</button>
+            <button class="btn btn-sm btn-primary" @click="editUserHandler(user)">Edit</button>
+            <button class="btn btn-sm btn-danger" @click="onDelete(user.id)">Delete</button>
           </td>
         </tr>
         </tbody>
@@ -34,6 +34,7 @@
   </div>
   <UserAddModal
       :editable="editable"
+      :selectedUser="selectedUser"
       v-show="visible"
       @close="closeModal"
   />
@@ -49,7 +50,8 @@
     data() {
       return {
         visible: false,
-        editable: true,
+        editable: false,
+        selectedUser: {}
       }
     },
     created() {
@@ -58,17 +60,23 @@
     methods: {
       ...mapActions('user', ['fetchUsersList', 'deleteUser']),
       openModal(editable = false) {
+        if(!editable) {
+          this.selectedUser = {}
+        }
         this.visible = true;
         this.editable = editable;
       },
       closeModal() {
         this.visible = false;
       },
-      OnDelete(id) {
+      onDelete(id) {
         if (!confirm('Are you sure to delete?')) return false;
         this.deleteUser(id);
+      },
+      editUserHandler(user) {
+        this.selectedUser = user
+        this.openModal(true)
       }
-
     },
     computed: {
       ...mapState({

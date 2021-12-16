@@ -30,8 +30,17 @@ function addNewUser(formData) {
     });
 }
 
+function updateUser(formData) {
+    return new Promise((resolve) => {
+        return axios.put(userApiRoute.userEndpoint+`/${formData.id}`, {formData}, {authHeader})
+            .then(response => {
+                resolve(response.data)
+            })
+            .catch(error => console.log(error))
+    });
+}
+
 function deleteUser(id) {
-    console.log(userApiRoute.userEndpoint+`/${id}`)
     return new Promise((resolve, reject) => {
         return axios.delete(userApiRoute.userEndpoint+`/${id}`, {authHeader})
             .then(response => resolve(response.data))
@@ -43,5 +52,6 @@ export const userService = {
     login,
     getAllUsersList,
     addNewUser,
+    updateUser,
     deleteUser
 };

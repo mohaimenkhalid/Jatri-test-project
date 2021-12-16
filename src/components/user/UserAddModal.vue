@@ -4,7 +4,7 @@
       <h6 class="text-dark">{{ editable ? "Edit ": "Add "}} User</h6>
     </template>
     <template v-slot:body>
-      <form @submit.prevent="submitHandler()" ref="userForm">
+      <form @submit.prevent="editable ? submitUpdateHandler() : submitAddHandler()" ref="userForm">
         <div class="form-group">
           <input type="text" v-model="form.name" class="form-control" placeholder="Your Name" required />
         </div>
@@ -34,26 +34,42 @@
   export default {
     name: 'UserAddModal',
     components: {Modal},
-    props: ["editable"],
+    props: ["editable", "selectedUser"],
     data(){
       return {
         form: {
+          id: '',
           name: '',
           email: '',
           username: '',
         },
-        visible: false,
 
       }
     },
+    watch: {
+      selectedUser: function (newVal) {
+        let {id, name, email, username} = newVal;
+        this.form.id = id;
+        this.form.name = name;
+        this.form.email = email;
+        this.form.username = username;
+      }
+    },
     methods: {
-      ...mapActions('user', ['addNewUser']),
-      async submitHandler() {
+      ...mapActions('user', ['addNewUser', 'updateUser']),
+      async submitAddHandler() {
         await this.addNewUser(this.form)
-        this.$refs.userForm.reset();
+        this.close()
+      },
+      async submitUpdateHandler() {
+        await this.updateUser(this.form)
         this.close()
       },
       close() {
+        this.form.id= '';
+        this.form.name= '';
+        this.form.email= '';
+        this.form.username= '';
         this.$emit("close");
       },
     },
