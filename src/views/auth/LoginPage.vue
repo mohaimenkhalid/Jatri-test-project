@@ -3,16 +3,15 @@
     <div class="row">
       <div class="col-md-4 offset-md-4 login-form">
         <h3>Login</h3>
-        {{ isAuthenticate }}
         <form @submit.prevent="handleSubmit">
           <div class="form-group">
-            <input type="text" v-model.trim="email" class="form-control" placeholder="Your Email" />
+            <input type="email" v-model.trim="email" class="form-control" placeholder="Your Email" required />
           </div>
           <div class="form-group mt-3">
-            <input type="password" v-model="password" class="form-control" placeholder="Your Password" />
+            <input type="password" v-model="password" class="form-control" placeholder="Your Password" required />
           </div>
           <div class="form-group text-center mt-3">
-            <input type="submit" class="btnSubmit" value="Login"/>
+            <input type="submit" class="btnSubmit" value="Login" :disabled="submitted"/>
           </div>
         </form>
       </div>
@@ -38,6 +37,7 @@ export default {
       if (email && password) {
         let loginFormData = {email, password}
         this.login(loginFormData)
+        this.submitted = false
       }
     }
   },

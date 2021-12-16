@@ -22,7 +22,7 @@
           <td>{{ user.email }}</td>
           <td>{{ user.username }}</td>
           <td class="d-flex justify-content-between">
-            <button class="btn btn-sm btn-info">View</button>
+            <router-link :to="`/users/${user.id}`" class="btn btn-sm btn-info">View</router-link>
             <button class="btn btn-sm btn-primary" @click="editUserHandler(user)">Edit</button>
             <button class="btn btn-sm btn-danger" @click="onDelete(user.id)">Delete</button>
           </td>

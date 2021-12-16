@@ -2,6 +2,7 @@ import {userService} from "@/services";
 
 const state = {
     users: [],
+    userDetails: null,
     loading: false
 }
 
@@ -22,7 +23,6 @@ const mutations = {
         state.users = [...state.users, payload]
     },
     UPDATE_USER(state, payload){
-        console.log(payload)
         state.users = state.users.map(user => {
             if(user.id === payload.id) {
                 return {...user, name: payload.name, email: payload.email, username: payload.username}
@@ -32,6 +32,9 @@ const mutations = {
     },
     DELETE_USER(state, id){
         state.users = state.users.filter(user => user.id !== id)
+    },
+    SET_USER_DETAILS(state, payload) {
+        state.userDetails = payload
     }
 }
 
@@ -55,9 +58,11 @@ const actions = {
     },
 
     async updateUser(context, formData) {
+        context.commit("SET_LOADING", true)
         await userService.updateUser(formData)
             .then(() => {
                 context.commit("UPDATE_USER", formData)
+                context.commit("SET_LOADING", false)
             })
     },
 

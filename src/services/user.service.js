@@ -48,10 +48,20 @@ function deleteUser(id) {
     });
 }
 
+function userDetails(id) {
+    return new Promise((resolve) => {
+        return axios.get(userApiRoute.userEndpoint+`/${id}`, {authHeader})
+            .then(res => {
+                resolve(res.data)
+            })
+    });
+}
+
 export const userService = {
     login,
     getAllUsersList,
     addNewUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    userDetails
 };
