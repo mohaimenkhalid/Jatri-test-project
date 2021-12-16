@@ -4,7 +4,7 @@ import {authHeader} from '@/helpers/authHeader'
 
 function login(formData) {
     return new Promise((resolve, reject) => {
-        return axios.get(userApiRoute.userLogin, {authHeader})
+        return axios.get(userApiRoute.userEndpoint, {authHeader})
             .then(response => {
                 let result = response.data.filter(user => user.email === formData.email &&
                     user.username === formData.password)
@@ -16,7 +16,7 @@ function login(formData) {
 
 function getAllUsersList() {
     return new Promise((resolve, reject) => {
-        return axios.get(userApiRoute.usersList, {authHeader})
+        return axios.get(userApiRoute.userEndpoint, {authHeader})
             .then(response => resolve(response.data))
             .catch(error => reject(error))
     });
@@ -24,7 +24,16 @@ function getAllUsersList() {
 
 function addNewUser(formData) {
     return new Promise((resolve, reject) => {
-        return axios.post(userApiRoute.addNewUser, formData, {authHeader})
+        return axios.post(userApiRoute.userEndpoint, formData, {authHeader})
+            .then(response => resolve(response.data))
+            .catch(error => reject(error))
+    });
+}
+
+function deleteUser(id) {
+    console.log(userApiRoute.userEndpoint+`/${id}`)
+    return new Promise((resolve, reject) => {
+        return axios.delete(userApiRoute.userEndpoint+`/${id}`, {authHeader})
             .then(response => resolve(response.data))
             .catch(error => reject(error))
     });
@@ -33,5 +42,6 @@ function addNewUser(formData) {
 export const userService = {
     login,
     getAllUsersList,
-    addNewUser
+    addNewUser,
+    deleteUser
 };

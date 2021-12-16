@@ -20,6 +20,9 @@ const mutations = {
     },
     SET_NEW_USER(state, payload){
         state.users = [...state.users, payload]
+    },
+    DELETE_USER(state, id){
+        state.users = state.users.filter(user => user.id !== id)
     }
 }
 
@@ -39,6 +42,13 @@ const actions = {
             .then(res=> {
                 context.commit("SET_NEW_USER", res)
                 context.commit("SET_LOADING", false)
+            })
+    },
+
+    async deleteUser(context, id) {
+        await userService.deleteUser(id)
+            .then(() => {
+                context.commit("DELETE_USER", id)
             })
     },
 

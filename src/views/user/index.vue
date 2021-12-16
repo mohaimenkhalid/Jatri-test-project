@@ -21,14 +21,11 @@
           <td>{{ user.name }}</td>
           <td>{{ user.email }}</td>
           <td>{{ user.username }}</td>
-
-          <td>
+          <td class="d-flex justify-content-between">
             <button class="btn btn-sm btn-info">View</button>
-          </td>
-          <td>
             <button class="btn btn-sm btn-primary">Edit</button>
+            <button class="btn btn-sm btn-danger" @click="OnDelete(user.id)">Delete</button>
           </td>
-          <td> <button class="btn btn-sm btn-danger">Delete</button></td>
         </tr>
         </tbody>
       </table>
@@ -59,7 +56,7 @@
       this.fetchUsersList();
     },
     methods: {
-      ...mapActions('user', ['fetchUsersList']),
+      ...mapActions('user', ['fetchUsersList', 'deleteUser']),
       openModal(editable = false) {
         this.visible = true;
         this.editable = editable;
@@ -67,6 +64,11 @@
       closeModal() {
         this.visible = false;
       },
+      OnDelete(id) {
+        if (!confirm('Are you sure to delete?')) return false;
+        this.deleteUser(id);
+      }
+
     },
     computed: {
       ...mapState({
