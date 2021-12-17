@@ -1,4 +1,5 @@
 import {albumService} from "@/services";
+import store from "@/store";
 
 const state = {
     albums: [],
@@ -9,6 +10,9 @@ const state = {
 
 const getters = {
     getAllAlbums(state) {
+        if(store.state.account.userinfo !== null) {
+            return state.albums.filter(album => album.userId === store.state.account.userinfo.id);
+        }
         return state.albums;
     },
     getAlbumPhotos(state) {

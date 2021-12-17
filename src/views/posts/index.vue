@@ -78,9 +78,10 @@
     },
     computed: {
       ...mapState({
+        posts: state => state.post.posts,
         loading: state => state.post.loading
       }),
-      ...mapGetters('post', ['getAllPosts'])
+      ...mapGetters('post', ['getAllPosts']),
     },
   }
 </script>

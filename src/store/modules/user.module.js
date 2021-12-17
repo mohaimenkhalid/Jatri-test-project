@@ -1,4 +1,5 @@
 import { userService} from "@/services";
+import store from "@/store";
 
 const state = {
     users: [],
@@ -9,6 +10,9 @@ const state = {
 
 const getters = {
     getAllUsers(state) {
+        if(store.state.account.userinfo != null) {
+            return state.users.filter(user => user.id === store.state.account.userinfo.id);
+        }
         return state.users;
     },
     getAllTodos(state) {

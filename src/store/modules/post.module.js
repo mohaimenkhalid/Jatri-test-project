@@ -1,4 +1,5 @@
 import {postService} from "@/services";
+import store from "@/store";
 
 const state = {
     posts: [],
@@ -9,6 +10,9 @@ const state = {
 
 const getters = {
     getAllPosts(state) {
+        if(store.state.account.userinfo !== null) {
+            return state.posts.filter(post => post.userId === store.state.account.userinfo.id);
+        }
         return state.posts;
     },
 }
