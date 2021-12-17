@@ -4,6 +4,7 @@ import store from './store'
 import router from './router'
 import VueAxios from "vue-axios";
 import axios from "axios";
+import '../src/assets/style.css'
 import PrimeVue from 'primevue/config';
 import Toast from "primevue/toast";
 import ToastService from 'primevue/toastservice'
