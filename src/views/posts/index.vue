@@ -22,7 +22,7 @@
           <td>{{ post.body }}</td>
           <td class="d-flex justify-content-between">
             <router-link :to="`/posts/${post.id}`" class="btn btn-sm btn-info">View</router-link>
-            <button class="btn btn-sm btn-primary" @click="editUserHandler(user)">Edit</button>
+            <button class="btn btn-sm btn-primary" @click="editUserHandler(post)">Edit</button>
             <button class="btn btn-sm btn-danger" @click="onDelete(user.id)">Delete</button>
           </td>
         </tr>
@@ -30,9 +30,9 @@
       </table>
     </div>
   </div>
-  <UserAddModal
+  <postModal
       :editable="editable"
-      :selectedUser="selectedUser"
+      :selectedPost="selectedPost"
       v-show="visible"
       @close="closeModal"
   />
@@ -41,15 +41,15 @@
 <script>
   import {mapActions, mapState, mapGetters} from 'vuex'
   import Loading from "@/components/Loading";
-  import UserAddModal from "@/components/user/UserAddModal";
+  import postModal from "@/components/post/postModal";
   export default {
     name: "PostList",
-    components: {UserAddModal, Loading},
+    components: {postModal, Loading},
     data() {
       return {
         visible: false,
         editable: false,
-        selectedUser: {}
+        selectedPost: {}
       }
     },
     created() {
@@ -71,8 +71,8 @@
         if (!confirm('Are you sure to delete?')) return false;
         this.deleteUser(id);
       },
-      editUserHandler(user) {
-        this.selectedUser = user
+      editUserHandler(post) {
+        this.selectedPost = post
         this.openModal(true)
       }
     },

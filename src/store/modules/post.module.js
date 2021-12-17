@@ -24,11 +24,11 @@ const mutations = {
         state.posts = [...state.posts, payload]
     },
     UPDATE_POST(state, payload){
-        state.posts = state.posts.map(user => {
-            if(user.id === payload.id) {
-                return {...user, name: payload.name, email: payload.email, username: payload.username}
+        state.posts = state.posts.map(post => {
+            if(post.id == payload.id) {
+                return {...post, title: payload.title, body: payload.body}
             }
-            return user;
+            return post;
         })
     },
     DELETE_POST(state, id){
@@ -61,21 +61,17 @@ const actions = {
             })
     },
 
-    async addNewUser(context, formData) {
-        context.commit("SET_LOADING", true)
-        await postService.addNewUser(formData)
+    async addNewPost(context, formData) {
+        await postService.addNewPost(formData)
             .then(res=> {
                 context.commit("SET_NEW_POST", res)
-                context.commit("SET_LOADING", false)
             })
     },
 
-    async updateUser(context, formData) {
-        context.commit("SET_LOADING", true)
-        await postService.updateUser(formData)
+    async updatePost(context, formData) {
+        await postService.updatePost(formData)
             .then(() => {
                 context.commit("UPDATE_POST", formData)
-                context.commit("SET_LOADING", false)
             })
     },
 
