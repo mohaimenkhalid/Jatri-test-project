@@ -54,6 +54,20 @@ function userDetails(id) {
             .then(res => {
                 resolve(res)
             })
+            .catch(err => {
+                resolve(err.response)
+            })
+    });
+}
+
+function getUserTodos(userId) {
+    return new Promise((resolve, reject) => {
+        return axios.get(userApiRoute.todosEndpoint, {authHeader})
+            .then(response => {
+                let result = response.data.filter(todo => todo.userId == userId)
+                resolve(result)
+            })
+            .catch(error => reject(error))
     });
 }
 
@@ -63,5 +77,6 @@ export const userService = {
     addNewUser,
     updateUser,
     deleteUser,
-    userDetails
+    userDetails,
+    getUserTodos
 };

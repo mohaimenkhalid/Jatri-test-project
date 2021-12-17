@@ -1,7 +1,8 @@
-import {userService} from "@/services";
+import { userService} from "@/services";
 
 const state = {
     users: [],
+    todos: [],
     userDetails: null,
     loading: false
 }
@@ -10,11 +11,18 @@ const getters = {
     getAllUsers(state) {
         return state.users;
     },
+    getAllTodos(state) {
+        return state.todos;
+    },
 }
 
 const mutations = {
     SET_USERS(state, payload) {
         state.users = payload;
+    },
+
+    SET_TODOS(state, payload) {
+        state.todos = payload;
     },
     SET_LOADING(state, payload) {
         state.loading = payload;
@@ -39,12 +47,19 @@ const mutations = {
 }
 
 const actions = {
-    fetchUsersList({commit}) {
+    async fetchUsersList({commit}) {
         commit("SET_LOADING", true)
-        userService.getAllUsersList()
+        await userService.getAllUsersList()
             .then(res=> {
                 commit("SET_USERS", res)
                 commit("SET_LOADING", false)
+            })
+    },
+
+    async getTodosByUser(context, userId) {
+        await userService.getUserTodos(userId)
+            .then(res => {
+                context.commit("SET_TODOS", res)
             })
     },
 
@@ -77,7 +92,11 @@ const actions = {
         context.commit("SET_LOADING", true)
         await userService.userDetails(userId)
             .then(res => {
-                context.commit("SET_USER_DETAILS", res.data)
+                if(res.status !== 200) {
+                    context.commit("SET_USER_DETAILS", null)
+                } else {
+                    context.commit("SET_USER_DETAILS", res.data)
+                }
                 context.commit("SET_LOADING", false)
             })
     }
