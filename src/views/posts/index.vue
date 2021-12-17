@@ -59,7 +59,7 @@
       ...mapActions('post', ['fetchPostsList', 'deletePost']),
       openModal(editable = false) {
         if(!editable) {
-          this.selectedUser = {}
+          this.selectedPost = {}
         }
         this.visible = true;
         this.editable = editable;

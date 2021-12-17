@@ -65,6 +65,7 @@
         this.submitted = false;
       },
       close() {
+        console.log("aaa")
         this.form.id= '';
         this.form.title= '';
         this.form.body= '';
