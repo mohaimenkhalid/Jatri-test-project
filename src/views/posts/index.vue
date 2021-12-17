@@ -1,8 +1,8 @@
 <template>
   <div class="card my-3">
     <div class="card-header d-flex justify-content-between">
-      <h4>User List</h4>
-      <button class="btn btn-danger" @click="openModal()">Add New User</button>
+      <h4>Posts List</h4>
+      <button class="btn btn-danger" @click="openModal()">Add New Post</button>
     </div>
     <div class="card-body table-responsive">
       <Loading :loading="loading" />
@@ -10,20 +10,18 @@
         <thead class="table-light">
         <tr>
           <th>SI#</th>
-          <th>Name</th>
-          <th>Email</th>
-          <th>username</th>
+          <th>Title</th>
+          <th>Body</th>
           <th>Action</th>
         </tr>
         </thead>
         <tbody>
-        <tr v-for="(user, i) in getAllUsers" :key="user.id">
+        <tr v-for="(post, i) in getAllPosts" :key="post.id">
           <td>{{ i+1 }}</td>
-          <td>{{ user.name }}</td>
-          <td>{{ user.email }}</td>
-          <td>{{ user.username }}</td>
+          <td>{{ post.title }}</td>
+          <td>{{ post.body }}</td>
           <td class="d-flex justify-content-between">
-            <router-link :to="`/users/${user.id}`" class="btn btn-sm btn-info">View</router-link>
+            <router-link :to="`/posts/${post.id}`" class="btn btn-sm btn-info">View</router-link>
             <button class="btn btn-sm btn-primary" @click="editUserHandler(user)">Edit</button>
             <button class="btn btn-sm btn-danger" @click="onDelete(user.id)">Delete</button>
           </td>
@@ -45,7 +43,7 @@
   import Loading from "@/components/Loading";
   import UserAddModal from "@/components/user/UserAddModal";
   export default {
-    name: "UserList",
+    name: "PostList",
     components: {UserAddModal, Loading},
     data() {
       return {
@@ -55,10 +53,10 @@
       }
     },
     created() {
-      this.fetchUsersList();
+      this.fetchPostsList();
     },
     methods: {
-      ...mapActions('user', ['fetchUsersList', 'deleteUser']),
+      ...mapActions('post', ['fetchPostsList', 'deleteUser']),
       openModal(editable = false) {
         if(!editable) {
           this.selectedUser = {}
@@ -80,9 +78,9 @@
     },
     computed: {
       ...mapState({
-        loading: state => state.user.loading
+        loading: state => state.post.loading
       }),
-      ...mapGetters('user', ['getAllUsers'])
+      ...mapGetters('post', ['getAllPosts'])
     },
   }
 </script>

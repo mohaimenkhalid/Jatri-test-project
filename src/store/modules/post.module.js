@@ -48,9 +48,9 @@ const actions = {
             })
     },
 
-    fetchUsersList({commit}) {
+    fetchPostsList({commit}) {
         commit("SET_LOADING", true)
-        postService.getAllUsersList()
+        postService.getAllPostsList()
             .then(res=> {
                 commit("SET_POSTS", res)
                 commit("SET_LOADING", false)
