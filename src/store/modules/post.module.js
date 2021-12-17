@@ -2,6 +2,7 @@ import {postService} from "@/services";
 
 const state = {
     posts: [],
+    postCommentsList: [],
     postDetails: null,
     loading: false
 }
@@ -35,7 +36,10 @@ const mutations = {
     },
     SET_POST_DETAILS(state, payload) {
         state.postDetails = payload
-    }
+    },
+    SET_POST_COMMENTS(state, payload) {
+        state.postCommentsList = payload;
+    },
 }
 
 const actions = {
@@ -82,9 +86,9 @@ const actions = {
             })
     },
 
-    async postDetailsInformation(context, userId) {
+    async postDetailsInformation(context, postId) {
         context.commit("SET_LOADING", true)
-        await postService.postDetails(userId)
+        await postService.postDetails(postId)
             .then(res => {
                 if(res.status !== 200) {
                     context.commit("SET_POST_DETAILS", null)
@@ -93,8 +97,16 @@ const actions = {
                 }
                 context.commit("SET_LOADING", false)
             })
-    }
+    },
 
+    async postComments(context, postId) {
+        context.commit("SET_LOADING", true)
+        postService.getPostComments(postId)
+            .then(res => {
+                context.commit("SET_POST_COMMENTS", res)
+                context.commit("SET_LOADING", false)
+            })
+    }
 }
 
 export default {

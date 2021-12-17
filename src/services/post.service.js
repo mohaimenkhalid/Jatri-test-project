@@ -51,7 +51,6 @@ function postDetails(id) {
     return new Promise((resolve) => {
         return axios.get(userApiRoute.postEndpoint+`/${id}`, {authHeader})
             .then(res => {
-                console.log(res)
                 resolve(res)
             })
             .catch(err => {
@@ -60,11 +59,22 @@ function postDetails(id) {
     });
 }
 
+
+function getPostComments(postId) {
+    return new Promise((resolve, reject) => {
+        return axios.get(userApiRoute.postEndpoint+`/${postId}/comments`, {authHeader})
+            .then(response => {resolve(response.data) })
+            .catch(error => reject(error))
+    });
+}
+
+
 export const postService = {
     getAllPostsList,
     addNewPost,
     updatePost,
     deletePost,
     postDetails,
-    getPostByUser
+    getPostByUser,
+    getPostComments
 };
