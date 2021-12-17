@@ -5,29 +5,45 @@
       <button class="btn btn-danger" @click="openModal()">Add New Post</button>
     </div>
     <div class="card-body table-responsive">
-      <Loading :loading="loading" />
-      <table class="table table-hover" v-if="!loading">
-        <thead class="table-light">
-        <tr>
-          <th>SI#</th>
-          <th>Title</th>
-          <th>Body</th>
-          <th>Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="(post, i) in getAllPosts" :key="post.id">
-          <td>{{ i+1 }}</td>
-          <td>{{ post.title }}</td>
-          <td>{{ post.body }}</td>
-          <td class="d-flex justify-content-between">
-            <router-link :to="`/posts/${post.id}`" class="btn btn-sm btn-info">View</router-link>
-            <button class="btn btn-sm btn-primary" @click="editUserHandler(post)">Edit</button>
-            <button class="btn btn-sm btn-danger" @click="onDelete(post.id)">Delete</button>
-          </td>
-        </tr>
-        </tbody>
-      </table>
+      <DataTable :value="getAllPosts" :paginator="true" class="p-datatable-customers" :rows="10"
+                 dataKey="id" v-model:filters="albumFilters" filterDisplay="row" :loading="loading1" responsiveLayout="scroll"
+      >
+        <template #empty>
+          No Data found.
+        </template>
+        <template #loading>
+          Loading data. Please wait.
+        </template>
+        <Column field="title" header="Title" style="min-width:12rem">
+          <template #body="{data}">
+            {{data.title}}
+          </template>
+          <template #filter="{filterModel,filterCallback}">
+            <InputText type="text" v-model="filterModel.value" @input="filterCallback()" class="p-column-filter" placeholder="Search by title " />
+          </template>
+        </Column>
+        <Column field="userId" header="User ID" style="min-width:12rem">
+          <template #body="{data}">
+            {{data.userId}}
+          </template>
+          <template #filter="{filterModel,filterCallback}">
+            <InputText type="text" v-model="filterModel.value" @input="filterCallback()" class="p-column-filter" placeholder="Search by User Id " />
+          </template>
+        </Column>
+        <Column field="body" header="Body" style="min-width:12rem">
+          <template #body="{data}">
+            {{data.body}}
+          </template>
+
+        </Column>
+        <Column header="Action" style="min-width:12rem">
+          <template #body="{data}">
+            <router-link :to="`/posts/${data.id}`" class="btn btn-sm btn-info">View</router-link>
+            <button class="btn btn-sm btn-primary" @click="editUserHandler(data)">Edit</button>
+            <button class="btn btn-sm btn-danger" @click="onDelete(data.id)">Delete</button>
+          </template>
+        </Column>
+      </DataTable>
     </div>
   </div>
   <postModal
@@ -40,20 +56,28 @@
 
 <script>
   import {mapActions, mapState, mapGetters} from 'vuex'
-  import Loading from "@/components/Loading";
   import postModal from "@/components/post/postModal";
+  import {FilterMatchMode} from "primevue/api";
   export default {
     name: "PostList",
-    components: {postModal, Loading},
+    components: {postModal},
     data() {
       return {
         visible: false,
         editable: false,
-        selectedPost: {}
+        selectedPost: {},
+        albumFilters: {
+          'title': {value: null, matchMode: FilterMatchMode.CONTAINS},
+          'userId': {value: null, matchMode: FilterMatchMode.EQUALS},
+        },
+        loading1: true
       }
     },
     created() {
       this.fetchPostsList();
+    },
+    mounted() {
+      this.loading1 = false;
     },
     methods: {
       ...mapActions('post', ['fetchPostsList', 'deletePost']),

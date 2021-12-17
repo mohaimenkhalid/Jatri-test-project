@@ -51,7 +51,6 @@ export default {
   },
   mounted() {
       this.loading1 = false;
-      console.log(this.customers2)
   },
   methods: {
   ...mapActions('albums', ['fetchAlbumsList']),
