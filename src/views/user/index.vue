@@ -5,31 +5,48 @@
       <button class="btn btn-danger" @click="openModal()">Add New User</button>
     </div>
     <div class="card-body table-responsive">
-      <Loading :loading="loading" />
-      <table class="table table-hover" v-if="!loading">
-        <thead class="table-light">
-        <tr>
-          <th>SI#</th>
-          <th>Name</th>
-          <th>Email</th>
-          <th>username</th>
-          <th>Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="(user, i) in getAllUsers" :key="user.id">
-          <td>{{ i+1 }}</td>
-          <td>{{ user.name }}</td>
-          <td>{{ user.email }}</td>
-          <td>{{ user.username }}</td>
-          <td class="d-flex justify-content-between">
-            <router-link :to="`/users/${user.id}`" class="btn btn-sm btn-info">View</router-link>
-            <button class="btn btn-sm btn-primary" @click="editUserHandler(user)">Edit</button>
-            <button class="btn btn-sm btn-danger" @click="onDelete(user.id)">Delete</button>
-          </td>
-        </tr>
-        </tbody>
-      </table>
+
+      <DataTable :value="getAllUsers" :paginator="true" class="p-datatable-customers" :rows="4"
+                 dataKey="id" v-model:filters="userFilter" filterDisplay="row" :loading="loading1" responsiveLayout="scroll"
+      >
+        <template #empty>
+          No Data found.
+        </template>
+        <template #loading>
+          Loading data. Please wait.
+        </template>
+        <Column field="name" header="Name" style="min-width:12rem">
+          <template #body="{data}">
+            {{data.name}}
+          </template>
+          <template #filter="{filterModel,filterCallback}">
+            <InputText type="text" v-model="filterModel.value" @input="filterCallback()" class="p-column-filter" placeholder="Search by name " />
+          </template>
+        </Column>
+        <Column field="email" header="Email" style="min-width:12rem">
+          <template #body="{data}">
+            {{data.email}}
+          </template>
+          <template #filter="{filterModel,filterCallback}">
+            <InputText type="text" v-model="filterModel.value" @input="filterCallback()" class="p-column-filter" placeholder="Search by name " />
+          </template>
+        </Column>
+        <Column field="username" header="Username" style="min-width:12rem">
+          <template #body="{data}">
+            {{data.username}}
+          </template>
+          <template #filter="{filterModel,filterCallback}">
+            <InputText type="text" v-model="filterModel.value" @input="filterCallback()" class="p-column-filter" placeholder="Search by name " />
+          </template>
+        </Column>
+        <Column header="Action" style="min-width:12rem">
+          <template #body="{data}">
+            <router-link :to="`/users/${data.id}`" class="btn btn-sm btn-info">View</router-link>
+            <button class="btn btn-sm btn-primary" @click="editUserHandler(data)">Edit</button>
+            <button class="btn btn-sm btn-danger" @click="onDelete(data.id)">Delete</button>
+          </template>
+        </Column>
+      </DataTable>
     </div>
   </div>
   <UserAddModal
@@ -42,20 +59,29 @@
 
 <script>
   import {mapActions, mapState, mapGetters} from 'vuex'
-  import Loading from "@/components/Loading";
   import UserAddModal from "@/components/user/UserAddModal";
+  import {FilterMatchMode} from "primevue/api";
   export default {
     name: "UserList",
-    components: {UserAddModal, Loading},
+    components: {UserAddModal},
     data() {
       return {
         visible: false,
         editable: false,
-        selectedUser: {}
+        selectedUser: {},
+        userFilter: {
+          'name': {value: null, matchMode: FilterMatchMode.CONTAINS},
+          'email': {value: null, matchMode: FilterMatchMode.STARTS_WITH},
+          'username': {value: null, matchMode: FilterMatchMode.STARTS_WITH},
+        },
+        loading1: true
       }
     },
     created() {
       this.fetchUsersList();
+    },
+    mounted() {
+      this.loading1 = false;
     },
     methods: {
       ...mapActions('user', ['fetchUsersList', 'deleteUser']),
