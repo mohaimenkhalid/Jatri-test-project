@@ -4,6 +4,7 @@
     <router-view />
   </div>
   <Footer />
+  <Toast />
 </template>
 <script>
 import { mapState } from "vuex"
@@ -14,7 +15,6 @@ export default {
   components: {
     Footer,
     Navbar
-
   },
   computed: {
     ...mapState("account", ["name"]),
