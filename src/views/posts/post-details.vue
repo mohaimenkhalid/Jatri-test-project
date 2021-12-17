@@ -1,16 +1,16 @@
 <template>
   <div class="row mt-3">
-    <div class="col-md-12">
-      <div class="">
-        <div class="">
+    <Loading :loading="loading" />
+    <div class="col-md-12" v-if="!loading">
+      <div>
+        <div>
             <h3>{{ postDetails.title }}</h3>
             <p>{{ postDetails.body }}</p>
         </div>
+        <CommentLists
+            :comments="postCommentsList"
+        />
       </div>
-
-      <CommentLists
-        :comments="postCommentsList"
-      />
     </div>
   </div>
 </template>
@@ -18,10 +18,11 @@
 <script>
 import {mapActions, mapState} from "vuex";
 import CommentLists from "@/components/post/CommentsList";
+import Loading from "@/components/Loading";
 
 export default {
     name: "postDetails",
-  components: {CommentLists},
+  components: {Loading, CommentLists},
   data(){
       return {
 
