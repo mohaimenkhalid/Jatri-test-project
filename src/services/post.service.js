@@ -73,7 +73,7 @@ export const postService = {
     getAllPostsList,
     addNewPost,
     updatePost,
-    deletePost,
+    deletePost ,
     postDetails,
     getPostByUser,
     getPostComments

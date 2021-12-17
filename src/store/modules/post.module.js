@@ -32,7 +32,7 @@ const mutations = {
         })
     },
     DELETE_POST(state, id){
-        state.posts = state.posts.filter(user => user.id !== id)
+        state.posts = state.posts.filter(post => post.id !== id)
     },
     SET_POST_DETAILS(state, payload) {
         state.postDetails = payload
@@ -75,8 +75,8 @@ const actions = {
             })
     },
 
-    async deleteUser(context, id) {
-        await postService.deleteUser(id)
+    async deletePost(context, id) {
+        await postService.deletePost(id)
             .then(() => {
                 context.commit("DELETE_POST", id)
             })

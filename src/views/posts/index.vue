@@ -23,7 +23,7 @@
           <td class="d-flex justify-content-between">
             <router-link :to="`/posts/${post.id}`" class="btn btn-sm btn-info">View</router-link>
             <button class="btn btn-sm btn-primary" @click="editUserHandler(post)">Edit</button>
-            <button class="btn btn-sm btn-danger" @click="onDelete(user.id)">Delete</button>
+            <button class="btn btn-sm btn-danger" @click="onDelete(post.id)">Delete</button>
           </td>
         </tr>
         </tbody>
@@ -56,7 +56,7 @@
       this.fetchPostsList();
     },
     methods: {
-      ...mapActions('post', ['fetchPostsList', 'deleteUser']),
+      ...mapActions('post', ['fetchPostsList', 'deletePost']),
       openModal(editable = false) {
         if(!editable) {
           this.selectedUser = {}
@@ -69,7 +69,7 @@
       },
       onDelete(id) {
         if (!confirm('Are you sure to delete?')) return false;
-        this.deleteUser(id);
+        this.deletePost(id);
       },
       editUserHandler(post) {
         this.selectedPost = post
