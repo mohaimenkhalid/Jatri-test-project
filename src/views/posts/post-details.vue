@@ -1,7 +1,8 @@
 <template>
   <div class="row mt-3">
     <Loading :loading="loading" />
-    <div class="col-md-12" v-if="!loading">
+    <NotFound v-if="postDetails == null" />
+    <div class="col-md-12" v-else>
       <Card>
         <template #header>
           <img alt="user header" src="https://primefaces.org/primevue/showcase/demo/images/usercard.png" height="200">
@@ -28,10 +29,11 @@
 import {mapActions, mapState} from "vuex";
 import CommentLists from "@/components/post/CommentsList";
 import Loading from "@/components/Loading";
+import NotFound from "@/components/partials/NotFound";
 
 export default {
     name: "postDetails",
-  components: {Loading, CommentLists},
+  components: {NotFound, Loading, CommentLists},
   data(){
       return {
 

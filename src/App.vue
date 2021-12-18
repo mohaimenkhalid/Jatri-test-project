@@ -10,6 +10,7 @@
 import { mapState } from "vuex"
 import Navbar from "@/components/partials/Navbar";
 import Footer from "@/components/partials/Footer";
+import './assets/placeholder-loading.min.css'
 export default {
   name: 'App',
   components: {

@@ -8,8 +8,8 @@
         </div>
       </div>
       <PhotoAlbum
-        :loading="loading"
-        :albumPhotos="albumPhotosList"
+          :loading="loading"
+          :albumPhotos="albumPhotosList"
       />
     </div>
   </div>
@@ -23,18 +23,25 @@ export default {
   name: "albumDetails",
   components: {PhotoAlbum},
   created() {
-      this.albumDetailsInformation(this.$route.params.id)
-      this.albumPhotos(this.$route.params.id)
-    },
-    methods: {
-      ...mapActions('albums', ['albumDetailsInformation', 'albumPhotos']),
-    },
-    computed: {
-      ...mapState({
-        loading: state => state.albums.loading,
-        albumDetails: state => state.albums.albumDetails,
-        albumPhotosList: state => state.albums.albumPhotos,
-      }),
-    },
-  }
+    this.albumDetailsInformation(this.$route.params.id)
+    this.albumPhotos(this.$route.params.id)
+  },
+  methods: {
+    ...mapActions('albums', ['albumDetailsInformation', 'albumPhotos']),
+  },
+  computed: {
+    ...mapState({
+      loading: state => state.albums.loading,
+      albumDetails: state => state.albums.albumDetails,
+      albumPhotosList: state => state.albums.albumPhotos,
+    }),
+  },
+}
 </script>
+
+<style scoped>
+.card {
+  padding: 1rem;
+  border-radius: 10px;
+}
+</style>

@@ -1,6 +1,6 @@
 <template>
-  <div v-if="userDetails == null"><h6>No Data Found</h6></div>
-  <div class="row mt-3" v-if="userDetails">
+  <NotFound v-if="userDetails == null" />
+  <div class="row mt-3" v-else>
     <div class="col-md-6">
       <div class="card">
         <div class="card-body">
@@ -37,10 +37,11 @@
 <script>
 import {mapActions, mapState} from "vuex";
 import Loading from "@/components/Loading";
+import NotFound from "@/components/partials/NotFound";
 
   export default {
     name: "UserInformation",
-    components: {Loading},
+    components: {NotFound, Loading},
     created() {
       this.userDetailsInformation(this.$route.params.id)
     },
