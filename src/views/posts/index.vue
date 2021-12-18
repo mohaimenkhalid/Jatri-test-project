@@ -94,6 +94,7 @@
       onDelete(id) {
         if (!confirm('Are you sure to delete?')) return false;
         this.deletePost(id);
+        this.$toast.add({severity:'success', summary: 'Success', detail:'Post Deleted Successfully', life: 3000});
       },
       editUserHandler(post) {
         this.selectedPost = post

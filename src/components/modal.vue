@@ -51,6 +51,7 @@ export default {
 }
 
 .modal {
+  position: initial !important;
   background: #FFFFFF;
   box-shadow: 2px 2px 20px 1px;
   overflow-x: auto;
@@ -59,7 +60,9 @@ export default {
   border-radius: 10px;
   width: 400px;
   height: auto !important;
-  transform: translate(100%, 50%)
+  left: 0;
+  top: 0;
+  transform: translate(0%, 0%);
 }
 
 .modal-header{

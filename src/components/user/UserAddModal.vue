@@ -60,10 +60,12 @@
       async submitAddHandler() {
         await this.addNewUser(this.form)
         this.close()
+        this.$toast.add({severity:'success', summary: 'Success', detail:'User Added Successfully', life: 3000});
       },
       async submitUpdateHandler() {
         await this.updateUser(this.form)
         this.close()
+        this.$toast.add({severity:'success', summary: 'Success', detail:'User Updated Successfully', life: 3000});
       },
       close() {
         this.form.id= '';

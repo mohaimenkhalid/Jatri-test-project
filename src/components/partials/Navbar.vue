@@ -15,7 +15,7 @@
     </template>
     <template #end>
       <div class="text-end" v-if="isAuthenticate === true">
-        <a @click="handleSubmit" type="button" class="btn btn-light me-2">
+        <a @click="handleSubmit" type="button" class="btn btn-light text-dark me-2">
           <i class="pi pi-sign-out"></i>
           Logout</a>
       </div>
@@ -64,6 +64,15 @@ import {mapActions, mapState} from "vuex";
       ...mapState({
         isAuthenticate: state => state.account.isAuthenticate
       }),
+    },
+    watch: {
+      isAuthenticate() {
+        if(this.isAuthenticate) {
+          this.$toast.add({severity:'success', summary: 'Success', detail:'LoggedIn Successfully', life: 3000});
+        } else {
+          this.$toast.add({severity:'success', summary: 'Success', detail:'Logout Successfully', life: 3000});
+        }
+      }
     },
     methods: {
       ...mapActions('account', ['logout']),

@@ -57,12 +57,14 @@
         await this.addNewPost(this.form)
         this.close()
         this.submitted = false;
+        this.$toast.add({severity:'success', summary: 'Success', detail:'Post Added Successfully', life: 3000});
       },
       async submitUpdateHandler() {
         this.submitted = true;
         await this.updatePost(this.form)
         this.close()
         this.submitted = false;
+        this.$toast.add({severity:'success', summary: 'Success', detail:'Post Update Successfully', life: 3000});
       },
       close() {
         console.log("aaa")

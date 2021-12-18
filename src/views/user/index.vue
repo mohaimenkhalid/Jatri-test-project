@@ -98,6 +98,7 @@
       onDelete(id) {
         if (!confirm('Are you sure to delete?')) return false;
         this.deleteUser(id);
+        this.$toast.add({severity:'success', summary: 'Success', detail:'User Deleted Successfully', life: 3000});
       },
       editUserHandler(user) {
         this.selectedUser = user
