@@ -41,9 +41,17 @@ export default {
       }
     }
   },
+  watch: {
+    loginStatus() {
+      if(this.loginStatus === false) {
+        this.$toast.add({severity:'error', summary: 'Error', detail:'Invalid Credential', life: 3000});
+      }
+    }
+  },
   computed: {
     ...mapState({
-      isAuthenticate: state => state.account.isAuthenticate
+      isAuthenticate: state => state.account.isAuthenticate,
+      loginStatus: state => state.account.loginStatus
     }),
   }
 }
