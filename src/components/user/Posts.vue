@@ -1,9 +1,10 @@
 <template>
   <div class="row mt-5">
     <div class="col-md-12">
-      <h5>User posts list</h5>
       <div class="card">
         <div class="card-body">
+          <h5>User posts list</h5>
+          <hr />
           <Loading :loading="loading" />
           <table class="table" v-if="!loading">
             <thead>

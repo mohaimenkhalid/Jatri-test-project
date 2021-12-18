@@ -13,7 +13,7 @@
             <template #loading>
               Loading data. Please wait.
             </template>
-            <Column field="title" header="Name" style="min-width:12rem">
+            <Column field="title" header="Name" style="min-width:15rem">
               <template #body="{data}">
                 {{data.title}}
               </template>
@@ -21,7 +21,15 @@
                 <InputText type="text" v-model="filterModel.value" @input="filterCallback()" class="p-column-filter" placeholder="Search by name " />
               </template>
             </Column>
-            <Column header="Action" style="min-width:12rem">
+            <Column field="userId" header="User ID" style="min-width:12rem">
+              <template #body="{data}">
+                {{data.userId}}
+              </template>
+              <template #filter="{filterModel,filterCallback}">
+                <InputText type="text" v-model="filterModel.value" @input="filterCallback()" class="p-column-filter" placeholder="Search by User ID " />
+              </template>
+            </Column>
+            <Column header="Action" style="min-width:8rem">
               <template #body="{data}">
                 <router-link :to="`/albums/${data.id}`" class="btn btn-primary">
                   <i class="pi pi-eye" />
@@ -45,6 +53,7 @@ export default {
     return {
       albumFilters: {
         'title': {value: null, matchMode: FilterMatchMode.CONTAINS},
+        'userId': {value: null, matchMode: FilterMatchMode.EQUALS},
       },
       loading1: true
     }

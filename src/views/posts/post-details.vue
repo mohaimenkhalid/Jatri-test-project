@@ -2,11 +2,20 @@
   <div class="row mt-3">
     <Loading :loading="loading" />
     <div class="col-md-12" v-if="!loading">
+      <Card>
+        <template #header>
+          <img alt="user header" src="https://primefaces.org/primevue/showcase/demo/images/usercard.png" height="200">
+        </template>
+        <template #title>
+          <h3>{{ postDetails.title }}</h3>
+        </template>
+        <template #content>
+          {{ postDetails.body }}
+        </template>
+        <template #footer>
+        </template>
+      </Card>
       <div>
-        <div>
-            <h3>{{ postDetails.title }}</h3>
-            <p>{{ postDetails.body }}</p>
-        </div>
         <CommentLists
             :comments="postCommentsList"
         />

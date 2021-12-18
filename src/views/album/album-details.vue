@@ -4,7 +4,7 @@
       <div class="card">
         <div class="card-body">
           <h4>Album Name:</h4>
-          <h6>{{ albumDetails.title }}</h6>
+          <h3>{{ albumDetails.title }}</h3>
         </div>
       </div>
       <PhotoAlbum

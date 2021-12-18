@@ -1,11 +1,10 @@
 <template>
   <div class="row mt-5">
-    <h5>User Todo List</h5>
     <div class="col-md-6">
-      <TodoListTable :todos="completeTodos" />
+      <TodoListTable :todos="completeTodos" :isCompleted="true" />
     </div>
     <div class="col-md-6">
-      <TodoListTable :todos="incompleteTodos" />
+      <TodoListTable :todos="incompleteTodos" :isCompleted="false"/>
     </div>
   </div>
 </template>

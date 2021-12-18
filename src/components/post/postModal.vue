@@ -14,7 +14,7 @@
         <div class="form-group text-center mt-3">
           <button type="submit" class="btn btn-danger" :disabled="submitted"
                   v-html="submitted ?
-                   `<i class='fa fa-spin fa-spinner mr-2'></i> loading`: 'Submit'"
+                   `<i class='fa fa-spin fa-spinner mr-2'></i> loading...`: 'submit'"
           >
 
           </button>

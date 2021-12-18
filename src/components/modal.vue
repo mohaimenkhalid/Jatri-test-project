@@ -15,7 +15,7 @@
               @click="close"
               aria-label="Close Modal"
           >
-            x
+            <i class="pi pi-times" />
           </button>
         </header>
 
