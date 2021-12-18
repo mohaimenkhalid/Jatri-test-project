@@ -7,10 +7,12 @@ import AlbumDetails from '../views/album/album-details'
 import PostList from '../views/posts'
 import PostDetails from '../views/posts/post-details'
 
+import guestGuard from "@/middleware/auth/guestGuard";
+
 const routes = [
     { path: '/', name: 'home', component: Home },
-    { path: '/login', name: 'login', component: Login },
-    { path: '/users', name: 'user',  component: UserList },
+    { path: '/login', name: 'login', component: Login, beforeEnter: guestGuard },
+    { path: '/users', name: 'user',  component:  UserList},
     { path: '/users/:id', name: 'UserDetails',  component: UserDetails },
     { path: '/albums', name: 'albums',  component: Albums },
     { path: '/albums/:id', name: 'albumDetails',  component: AlbumDetails },
