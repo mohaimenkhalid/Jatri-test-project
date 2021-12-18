@@ -45,7 +45,7 @@
               <i class="pi pi-eye" />
             </router-link>
             <button class="btn btn-sm btn-primary mr-5" @click="editUserHandler(data)">
-              <i class="pi pi-pencil" />
+              <i class="pi pi-user-edit" />
             </button>
             <button class="btn btn-sm btn-danger" @click="onDelete(data.id)">
               <i class="pi pi-trash" />

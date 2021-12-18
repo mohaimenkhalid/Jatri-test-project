@@ -44,17 +44,17 @@ import {mapActions, mapState} from "vuex";
           },
           {
             label:'Post',
-            icon:'pi pi-home',
+            icon:'pi pi-file',
             url:'/posts'
           },
           {
             label:'User',
-            icon:'pi pi-home',
+            icon:'pi pi-users',
             url:'/users'
           },
           {
             label:'Albums',
-            icon:'pi pi-home',
+            icon:'pi pi-images',
             url:'/albums'
           }
         ]
