@@ -80,10 +80,16 @@ export default {
 .btnSubmit {
   font-weight: 600;
   width: 50%;
-  color: #282726;
-  background-color: #fff;
-  border: none;
+  background-color: #F04935;
+  border: 2px solid #fff;
+  color: #fff;
   border-radius: 1.5rem;
   padding: 2%;
+}
+
+.btnSubmit:hover {
+  background-color: #fff;
+  border: 2px solid #fff;
+  color: #F04935;
 }
 </style>
