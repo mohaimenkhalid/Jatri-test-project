@@ -1,5 +1,6 @@
 .body{
     background: #f3f7f6;
+    font-family: 'Roboto', sans-serif;
 }
 
 .card {
@@ -8,4 +9,5 @@
     box-shadow: 0 0 20px 0 #dddddd8c;
     border-radius: 30px;
     border: none;
+    font-family: 'Roboto', sans-serif;
 }

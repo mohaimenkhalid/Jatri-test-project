@@ -1,25 +1,32 @@
 <template>
-  <header class="p-3 bg-danger text-white">
-    <div class="container">
-      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-        <router-link to="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-          <h4>Jatri</h4>
+  <Menubar :model="items">
+    <template #start>
+      <h3 class="logo">
+        <router-link to="/">
+          Jatri
         </router-link>
-        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><router-link to="/" class="nav-link px-2 text-white">Home</router-link></li>
-          <li><router-link to="/users" class="nav-link px-2 text-white">User</router-link></li>
-          <li><router-link to="/posts" class="nav-link px-2 text-white">Post</router-link></li>
-          <li><router-link to="/albums" class="nav-link px-2 text-white">Album</router-link></li>
-        </ul>
-        <div class="text-end" v-if="isAuthenticate === true">
-          <a @click="handleSubmit" type="button" class="btn btn-light me-2">Logout</a>
-        </div>
-        <div class="text-end" v-else>
-          <router-link to="/login"  type="button" class="btn btn-light me-2">Login</router-link>
-        </div>
+      </h3>
+    </template>
+    <template #item="{item}" class="nav">
+      <router-link :to="item.url"  type="button" class="me-2">
+        <i :class="item.icon"></i>
+        {{item.label}}
+      </router-link>
+    </template>
+    <template #end>
+      <div class="text-end" v-if="isAuthenticate === true">
+        <a @click="handleSubmit" type="button" class="btn btn-light me-2">
+          <i class="pi pi-sign-out"></i>
+          Logout</a>
       </div>
-    </div>
-  </header>
+      <div class="text-end" v-else>
+        <router-link to="/login"  type="button" class="me-2">
+          <i class="pi pi-sign-in"></i>
+          Login
+        </router-link>
+      </div>
+    </template>
+  </Menubar>
 </template>
 
 <script>
@@ -29,7 +36,28 @@ import {mapActions, mapState} from "vuex";
     name: "Navbar",
     data() {
       return {
-
+        items: [
+          {
+            label:'Home',
+            icon:'pi pi-home',
+            url:'/'
+          },
+          {
+            label:'Post',
+            icon:'pi pi-home',
+            url:'/posts'
+          },
+          {
+            label:'User',
+            icon:'pi pi-home',
+            url:'/users'
+          },
+          {
+            label:'Albums',
+            icon:'pi pi-home',
+            url:'/albums'
+          }
+        ]
       }
     },
     computed: {
@@ -45,3 +73,37 @@ import {mapActions, mapState} from "vuex";
     }
   }
 </script>
+
+<style>
+.p-menubar{
+  padding: 0.5rem;
+  background: #F04935 !important;
+  color: #495057;
+  border: 0 !important;
+  border-radius: 0 !important;
+}
+.p-menubar .p-menuitem {
+  position: relative;
+  padding: 1rem;
+}
+.p-menubar a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+i.pi-bars {
+  font-size: 25px;
+  color: #fff;
+}
+
+@media screen and (max-width: 960px) {
+  .p-menubar .p-menubar-root-list {
+    background: #f96a6a !important;
+  }
+  .logo {
+    display: none;
+  }
+}
+
+</style>

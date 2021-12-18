@@ -11,8 +11,7 @@ import ToastService from 'primevue/toastservice'
 import InputText from "primevue/inputtext";
 import Column from "primevue/column";
 import DataTable from "primevue/datatable";
-import Tooltip from "primevue/tooltip";
-
+import Menubar from 'primevue/menubar';
 
 import 'primevue/resources/themes/saga-blue/theme.css'       //theme
 import 'primevue/resources/primevue.min.css'                 //core css
@@ -29,6 +28,6 @@ app.component("Toast", Toast)
 app.component("InputText", InputText)
 app.component("Column", Column)
 app.component("DataTable", DataTable)
-app.component("Tooltip", Tooltip)
+app.component("Menubar", Menubar)
 
 app.mount('#app')

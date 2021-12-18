@@ -5,8 +5,8 @@
         <div class="jumbotron jumbotron-fluid">
           <div class="container">
             <img src="https://repository-images.githubusercontent.com/106262467/4cbe6700-41c9-11ea-8860-57668b5a0ec2" width="100" />
-            <h1 class="display-4 fw-bold">Welcome to Site</h1>
-            <p class="lead ">This is a demonstration of coding test.</p>
+            <h1 class="display-4 fw-bold text-uppercase">Welcome to Project</h1>
+            <p class="lead ">This is a demonstration of coding test. This project build with most popular javaScript framework <span class="fw-bold">VUE JS</span></p>
           </div>
         </div>
         <div class="card">
@@ -29,7 +29,7 @@
     justify-content: center;
     align-items: center;
     display: flex;
-    min-height: 70vh;
+    min-height: 80vh;
   }
 
   .line-height-0-5 {
