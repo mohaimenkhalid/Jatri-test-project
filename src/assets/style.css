@@ -11,3 +11,7 @@
     border: none;
     font-family: 'Roboto', sans-serif;
 }
+
+.mr-5 {
+    margin-right: 5px;
+}

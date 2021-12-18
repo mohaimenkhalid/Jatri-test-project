@@ -1,10 +1,10 @@
 <template>
   <div class="card my-3">
-    <div class="card-header d-flex justify-content-between">
-      <h4>Posts List</h4>
-      <button class="btn btn-danger" @click="openModal()">Add New Post</button>
-    </div>
     <div class="card-body table-responsive">
+      <div class="d-flex justify-content-between mb-4">
+        <h4>Posts List</h4>
+        <button class="btn btn-danger" @click="openModal()">Add New Post</button>
+      </div>
       <DataTable :value="getAllPosts" :paginator="true" class="p-datatable-customers" :rows="10"
                  dataKey="id" v-model:filters="albumFilters" filterDisplay="row" :loading="loading1" responsiveLayout="scroll"
       >
@@ -36,11 +36,17 @@
           </template>
 
         </Column>
-        <Column header="Action" style="min-width:12rem">
+        <Column header="Action" style="min-width:12rem;">
           <template #body="{data}">
-            <router-link :to="`/posts/${data.id}`" class="btn btn-sm btn-info">View</router-link>
-            <button class="btn btn-sm btn-primary" @click="editUserHandler(data)">Edit</button>
-            <button class="btn btn-sm btn-danger" @click="onDelete(data.id)">Delete</button>
+            <router-link :to="`/posts/${data.id}`" class="btn btn-info mr-5">
+              <i class="pi pi-eye" />
+              </router-link>
+            <button class="btn btn-primary mr-5" @click="editUserHandler(data)">
+              <i class="pi pi-pencil" />
+            </button>
+            <button class="btn btn-danger" @click="onDelete(data.id)" style="margin-right: 5px">
+              <i class="pi pi-trash" />
+            </button>
           </template>
         </Column>
       </DataTable>

@@ -23,7 +23,10 @@
             </Column>
             <Column header="Action" style="min-width:12rem">
               <template #body="{data}">
-                <router-link :to="`/albums/${data.id}`" class="btn btn-sm btn-info">View</router-link>
+                <router-link :to="`/albums/${data.id}`" class="btn btn-primary">
+                  <i class="pi pi-eye" />
+                  View
+                </router-link>
               </template>
             </Column>
           </DataTable>

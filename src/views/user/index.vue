@@ -41,9 +41,15 @@
         </Column>
         <Column header="Action" style="min-width:12rem">
           <template #body="{data}">
-            <router-link :to="`/users/${data.id}`" class="btn btn-sm btn-info">View</router-link>
-            <button class="btn btn-sm btn-primary" @click="editUserHandler(data)">Edit</button>
-            <button class="btn btn-sm btn-danger" @click="onDelete(data.id)">Delete</button>
+            <router-link :to="`/users/${data.id}`" class="btn btn-sm btn-info mr-5">
+              <i class="pi pi-eye" />
+            </router-link>
+            <button class="btn btn-sm btn-primary mr-5" @click="editUserHandler(data)">
+              <i class="pi pi-pencil" />
+            </button>
+            <button class="btn btn-sm btn-danger" @click="onDelete(data.id)">
+              <i class="pi pi-trash" />
+            </button>
           </template>
         </Column>
       </DataTable>
