@@ -1,7 +1,7 @@
 <template>
   <div class="card my-3">
     <div class="card-header d-flex justify-content-between">
-      <h4>User List</h4>
+      <h4>User List (with Custom Pagination, Filter)</h4>
       <button class="btn btn-danger" @click="openModal()">Add New User</button>
     </div>
     <div class="card-body table-responsive">
@@ -11,21 +11,21 @@
           <th scope="col">
             Name
             <div class="d-flex">
-              <input type="text" placeholder="Search By Name" class="form-control" v-model="filterData.name"/>
+              <input type="text" placeholder="Search By Name" class="form-control filter-input" v-model="filterData.name"/>
               <button class="btn text-danger fw-bolder" v-if="filterData.name" @click="this.filterData.name = ''">x</button>
             </div>
           </th>
           <th scope="col">
             Username
             <div class="d-flex">
-              <input type="text" placeholder="Search By Username" class="form-control" v-model="filterData.username"/>
+              <input type="text" placeholder="Search By Username" class="form-control filter-input" v-model="filterData.username"/>
               <button class="btn text-danger fw-bolder" v-if="filterData.username" @click="this.filterData.username = ''">x</button>
             </div>
           </th>
           <th scope="col">
             Email
             <div class="d-flex">
-              <input type="text" placeholder="Search By Email" class="form-control" v-model="filterData.email"/>
+              <input type="text" placeholder="Search By Email" class="form-control filter-input" v-model="filterData.email"/>
               <button class="btn text-danger fw-bolder" v-if="filterData.email" @click="this.filterData.email = ''">x</button>
             </div>
           </th>
@@ -143,7 +143,7 @@ export default {
 </script>
 
 <style>
-input.form-control {
+.filter-input {
   width: 50%
 }
 </style>
