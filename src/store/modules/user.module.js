@@ -43,6 +43,12 @@ const mutations = {
             }
             return user;
         })
+        state.users = state.users.map(user => {
+            if(user.id === payload.id) {
+                return {...user, name: payload.name, email: payload.email, username: payload.username}
+            }
+            return user;
+        })
     },
     DELETE_USER(state, id){
         state.filteredUsers = state.filteredUsers.filter(user => user.id !== id)
