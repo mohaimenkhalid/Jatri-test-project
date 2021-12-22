@@ -73,7 +73,6 @@
           pageLimit: this.pageLimit,
           activePage: this.activePage
         };
-        console.log(pageData)
         this.$emit('onPageChange', pageData)
       },
       setTotalPage() {
