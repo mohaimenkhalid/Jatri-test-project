@@ -11,9 +11,13 @@ function getAllAlbumsList() {
 }
 
 function getAlbumPhotos(albumId) {
+
     return new Promise((resolve, reject) => {
-        return axios.get(userApiRoute.albumsEndpoint+`/${albumId}/photos`, {authHeader})
-            .then(response => resolve(response.data))
+        return axios.get(userApiRoute.albumPhotoEndpoint, {authHeader})
+            .then(response => {
+                let result = response.data.filter(albumPhoto => albumPhoto.albumId == albumId)
+                resolve(result)
+            })
             .catch(error => reject(error))
     });
 }
