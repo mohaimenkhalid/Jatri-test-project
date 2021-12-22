@@ -62,8 +62,11 @@ function postDetails(id) {
 
 function getPostComments(postId) {
     return new Promise((resolve, reject) => {
-        return axios.get(userApiRoute.postEndpoint+`/${postId}/comments`, {authHeader})
-            .then(response => {resolve(response.data) })
+        return axios.get(userApiRoute.commentsEndpoint, {authHeader})
+            .then(response => {
+                let result = response.data.filter(comment => comment.postId == postId)
+                resolve(result)
+            })
             .catch(error => reject(error))
     });
 }
