@@ -37,7 +37,7 @@ const mutations = {
         state.users = [...state.users, payload]
     },
     UPDATE_USER(state, payload){
-        state.users = state.users.map(user => {
+        state.filteredUsers = state.filteredUsers.map(user => {
             if(user.id === payload.id) {
                 return {...user, name: payload.name, email: payload.email, username: payload.username}
             }
@@ -45,7 +45,7 @@ const mutations = {
         })
     },
     DELETE_USER(state, id){
-        state.users = state.users.filter(user => user.id !== id)
+        state.filteredUsers = state.filteredUsers.filter(user => user.id !== id)
     },
     SET_USER_DETAILS(state, payload) {
         state.userDetails = payload
