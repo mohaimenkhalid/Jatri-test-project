@@ -8,10 +8,21 @@
       <table class="table">
         <thead>
         <tr>
-          <th scope="col">Name</th>
-          <th scope="col">Username</th>
-          <th scope="col">Email</th>
-          <th scope="col">Actions</th>
+          <th scope="col">
+            Name
+            <input type="text" placeholder="Search By Name" class="form-control" v-model="filterData.name"/>
+          </th>
+          <th scope="col">
+            Username
+            <input type="text" placeholder="Search By Username" class="form-control" v-model="filterData.username" />
+          </th>
+          <th scope="col">
+            Email
+            <input type="text" placeholder="Search By Email" class="form-control" v-model="filterData.email" />
+          </th>
+          <th scope="col">
+            Actions
+          </th>
         </tr>
         </thead>
         <tbody>
@@ -33,9 +44,8 @@
         </tr>
         </tbody>
       </table>
-<!--      {{JSON.stringify(currentUsers)}}-->
       <Pagination
-          :totalRecords="allUsers"
+          :totalRecords="this.getAllUsers"
           @onPageChange="this.onPageChange"
       />
     </div>
@@ -60,12 +70,18 @@
         visible: false,
         editable: false,
         selectedUser: {},
-        currentUsers: []
+        currentUsers: [],
+        filterData: {
+          name: '',
+          username: '',
+          email: ''
+        },
+        filterActive: false
       }
     },
 
     methods: {
-      ...mapActions('user', ['fetchUsersList', 'deleteUser']),
+      ...mapActions('user', ['fetchUsersList', 'deleteUser', 'filterUser']),
       openModal(editable = false) {
         if(!editable) {
           this.selectedUser = {}
@@ -87,15 +103,32 @@
       },
       onPageChange(pageData) {
         let offset = (pageData.activePage - 1) * pageData.pageLimit;
-        this.currentUsers = this.allUsers.slice(offset, offset + pageData.pageLimit)
-      }
+        this.currentUsers = this.filteredUsers.slice(offset, offset + pageData.pageLimit)
+      },
+    },
+    created() {
+      this.fetchUsersList();
     },
     computed: {
       ...mapState({
         loading: state => state.user.loading,
-        allUsers: state => state.user.users
+        filteredUsers: state => state.user.filteredUsers
       }),
       ...mapGetters('user', ['getAllUsers'])
     },
+    watch: {
+      filterData: {
+        handler(value) {
+          this.filterUser(value)
+        },
+        deep: true
+      }
+    }
   }
 </script>
+
+<style>
+  input.form-control {
+    width: 50%
+  }
+</style>

@@ -3,6 +3,7 @@ import store from "@/store";
 
 const state = {
     users: [],
+    filteredUsers: [],
     todos: [],
     userDetails: null,
     loading: false
@@ -13,7 +14,7 @@ const getters = {
         if(store.state.account.userinfo != null) {
             return state.users.filter(user => user.id === store.state.account.userinfo.id);
         }
-        return state.users;
+        return state.filteredUsers;
     },
     getAllTodos(state) {
         return state.todos;
@@ -23,6 +24,7 @@ const getters = {
 const mutations = {
     SET_USERS(state, payload) {
         state.users = payload;
+        state.filteredUsers = payload;
     },
 
     SET_TODOS(state, payload) {
@@ -47,6 +49,17 @@ const mutations = {
     },
     SET_USER_DETAILS(state, payload) {
         state.userDetails = payload
+    },
+    FILTER_USER(state, data) {
+        if(data.name !== '' || data.username !== '' || data.email !== '') {
+            state.filteredUsers = state.users.filter(user => {
+                return (data.name !== '' ? user.name.toLowerCase().includes(data.name.toLowerCase()) : true)
+                    && (data.username !== '' ? user.username.toLowerCase().includes(data.username.toLowerCase()) : true)
+                    && (data.email !== '' ? user.email.toLowerCase().includes(data.email.toLowerCase()) : true)
+            })
+        } else {
+            state.filteredUsers = state.users;
+        }
     }
 }
 
@@ -103,6 +116,10 @@ const actions = {
                 }
                 context.commit("SET_LOADING", false)
             })
+    },
+
+    filterUser(context, data) {
+      context.commit('FILTER_USER', data)
     }
 
 }
